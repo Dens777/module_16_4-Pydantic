@@ -18,7 +18,7 @@ def get_users() -> List[User]:
 
 @app.post('/user/{username}/{age}') # запрос регистрация пользователя
 def create_user(username: Annotated[str, Path(min_length=5, max_length=20, description='Enter username')],
-                    age: Annotated[int, Path(ge=18, le=120, description='Enter age')]) -> User:
+                    age: Annotated[int, Path(ge=18, le=80, description='Enter age')]) -> User:
     new_id = (users[-1].id + 1) if users else 1
     new_user = User(id=new_id, username=username, age=age)
     users.append(new_user)
@@ -27,7 +27,7 @@ def create_user(username: Annotated[str, Path(min_length=5, max_length=20, descr
 @app.put('/user/{user_id}/{username}/{age}') # запрос на изменение данных пользователя
 def update_user(user_id: Annotated[int, Path(ge=1, le=100, description='Enter User ID')],
                       username: Annotated[str, Path(min_length=5, max_length=20, description='Enter username')],
-                      age: Annotated[int, Path(ge=18, le=120, description='Enter age')]) -> User:
+                      age: Annotated[int, Path(ge=18, le=80, description='Enter age')]) -> User:
     for user in users:
         if user.id == user_id:
             user.username = username
